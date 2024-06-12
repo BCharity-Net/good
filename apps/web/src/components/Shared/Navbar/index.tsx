@@ -48,7 +48,7 @@ const Navbar: FC = () => {
         href={url}
       >
         {icon}
-        <span>{name}</span>
+        <span className="text-white">{name}</span>
       </Link>
     );
   };
@@ -108,6 +108,15 @@ const Navbar: FC = () => {
                 <NotificationIcon />
                 <MessagesIcon />
                 <MoreNavItems />
+                <div className="w-full">
+                  <button
+                    className="bg-custom-pink mt-3 inline-flex w-full items-center justify-center rounded-full px-4 py-2 text-white focus:outline-none"
+                    style={{ backgroundColor: '#da5597' }}
+                    type="button"
+                  >
+                    Post
+                  </button>
+                </div>
                 <Link
                   className={cn(
                     'md:hidden',
@@ -123,10 +132,14 @@ const Navbar: FC = () => {
                     width={32}
                   />
                 </Link>
-                <div className="flex items-start justify-start gap-4">
+                <div
+                  className="mt-10 flex items-start justify-end gap-4"
+                  id="profile"
+                >
                   {currentProfile ? <ModIcon /> : null}
                   <MenuItems />
                 </div>
+                <span>@{currentProfile?.handle?.localName}</span>
               </div>
             </div>
           </div>
