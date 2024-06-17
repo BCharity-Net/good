@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { HEY_API_URL } from '@good/data/constants';
+import { GOOD_API_URL } from '@good/data/constants';
 import formatRelativeOrAbsolute from '@good/helpers/datetime/formatRelativeOrAbsolute';
 import { Card, CardHeader } from '@good/ui';
 import axios from 'axios';
@@ -20,7 +20,7 @@ const Events: FC = () => {
   const fetchEvents = async () => {
     try {
       const response = await axios.get<{ result: Event[]; success: boolean }>(
-        `${HEY_API_URL}/leafwatch/stream`
+        `${GOOD_API_URL}/leafwatch/stream`
       );
       if (response.data.success) {
         setEvents(response.data.result);
