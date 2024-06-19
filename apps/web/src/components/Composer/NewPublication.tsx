@@ -37,6 +37,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useCreatePoll from 'src/hooks/useCreatePoll';
 import useCreatePublication from 'src/hooks/useCreatePublication';
+import useCreateCommunity from 'src/hooks/useCreateCommunity';
 import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
@@ -281,6 +282,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     onCompleted,
     onError,
     quoteOn: quotedPublication as Quote
+  });
+
+  const { upload } = useCreateCommunity({
+    onCompleted,
+    onError
   });
 
   useEffect(() => {
@@ -608,7 +614,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               videoThumbnail.uploading ||
               exceededMentionsLimit
             }
-            onClick={createPublication}
+            onClick={() => upload({ name: 'test community' })}
           >
             {isComment ? 'Comment' : 'Post'}
           </Button>
