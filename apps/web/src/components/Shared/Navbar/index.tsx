@@ -30,7 +30,8 @@ import ModIcon from './ModIcon';
 import MoreNavItems from './MoreNavItems';
 import SignupButton from './SignupButton';
 import StaffBar from './StaffBar';
-
+import CreateCommunities from '@components/Communities/CreateCommunites';
+import { Button } from '@good/ui';
 const NavbarContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -254,6 +255,8 @@ const Navbar: FC = () => {
               <NavItems />
               <div className="desktop-post-button mt-5 w-full">
                 <NavPost />
+               <CreateCommunities/>
+               
                 {!currentProfile ? <LoginButton /> : null}
                 {!currentProfile ? <SignupButton /> : null}
                 <div

@@ -14,7 +14,7 @@ interface ButtonProps
   icon?: ReactNode;
   outline?: boolean;
   size?: 'lg' | 'md' | 'sm';
-  variant?: 'danger' | 'primary' | 'secondary' | 'warning';
+  variant?: 'danger' | 'primary' | 'secondary' | 'warning' | 'pink';
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -34,7 +34,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       'border border-black dark:border-white': variant === 'primary',
       'border border-gray-600': variant === 'secondary',
       'border border-red-600': variant === 'danger',
-      'border border-yellow-600 focus:ring-yellow-400/50': variant === 'warning'
+      'border border-yellow-600 focus:ring-yellow-400/50': variant === 'warning',
+      'border border-pink-500': variant == 'pink'
     };
 
     const nonOutlineStyles = {
@@ -45,7 +46,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       'bg-red-500 text-white hover:bg-red-400 active:bg-red-700':
         !outline && variant === 'danger',
       'bg-yellow-500 text-white hover:bg-yellow-400 active:bg-yellow-700':
-        !outline && variant === 'warning'
+        !outline && variant === 'warning',
+      'bg-pink-500 text-white hover:big-pink-400 active:bg-pink-700':
+      !outline && variant === 'pink'
     };
 
     const outlineStyles = {
