@@ -104,7 +104,7 @@ export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.png`;
 export const MOONPAY_URL = IS_MAINNET
   ? 'https://buy.moonpay.com'
   : 'https://buy-sandbox.moonpay.com';
-export const GOOD_IMAGEKIT_URL = 'https://ik.imagekit.io/bcharitydev/';
+export const GOOD_IMAGEKIT_URL = 'https://ik.imagekit.io/bcharitydev';
 
 // Tokens / Keys
 export const WALLETCONNECT_PROJECT_ID = 'cd542acc70c2b30f9901a52e70c8';
