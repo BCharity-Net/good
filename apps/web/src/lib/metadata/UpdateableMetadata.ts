@@ -15,10 +15,12 @@ export class UpdateableMetadata extends PublicationMetadata {
    * A uuid associated with this metadata
    */
   id: string;
+  originalPostId: string
 
   constructor(builder: UpdateableMetadataBuilder<UpdateableMetadata>) {
     super(builder);
     this.id = builder.id;
+    this.originalPostId = builder.originalPostId;
   }
 }
 
@@ -29,7 +31,8 @@ export class UpdateableMetadata extends PublicationMetadata {
 export abstract class UpdateableMetadataBuilder<
   T extends UpdateableMetadata
 > extends PublicationMetadataBuilder<T> {
-  id: string;
+  readonly id: string;
+  readonly originalPostId: string;
 
   /**
    * Sets the id field to be used by any classes than inherit from this
@@ -38,5 +41,6 @@ export abstract class UpdateableMetadataBuilder<
   constructor(versions: Set<string>, post: PostFieldsFragment) {
     super(versions, post);
     this.id = this.getAttribute('id');
+    this.originalPostId = this.getAttribute('originalPostId', {default: ""});
   }
 }

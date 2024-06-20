@@ -34,7 +34,8 @@ const useCreateCommunity = (props: CreateCommunityInput) => {
       id: v4(),
       name,
       tag: PostTags.Communities.Create,
-      version: CommunityMetadataVersion['1.0.0']
+      version: CommunityMetadataVersion['1.0.0'],
+      originalPostId: '' // since this is the first post in the "chain"
     };
     const baseMetadata = buildCommunityMetadata(currentProfile, communityData);
     const metadata = getMetadata({ baseMetadata });
