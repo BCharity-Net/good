@@ -30,7 +30,7 @@ export const Modal: FC<ModalProps> = ({
   title
 }) => {
   const handleClose = (e: SyntheticEvent) => {
-    e.stopPropagation(); // This stops the event from propagating further
+    e.stopPropagation();
     onClose?.();
   };
 

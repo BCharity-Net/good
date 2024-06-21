@@ -2,6 +2,9 @@ import React, { FC, useState, useEffect, SyntheticEvent } from 'react';
 import { Modal } from '@good/ui';
 import { Button, Card, ErrorMessage } from '@good/ui';
 import Discard from '@components/Composer/Post/Discard';
+import { Editor } from '@components/Composer/Editor';
+import cn from '@good/ui/cn';
+
 
 
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -49,60 +52,67 @@ const createCommunity = async () => {
   };
 
   const modalContent = (
-    <div className="ml-5 mr-5">
-      <div className="flex flex-col pt-5 items-center justify-center">
-        <div className="p-4 flex flex-col items-center justify-center w-full">
-          <div className="relative w-full mb-20">
-            <input
-              type="text"
-              className="border-2 border-black rounded-full px-5 py-3 text-black w-full focus:border-pink-500"
-              placeholder="Community Name"
-              value={inputValue}
-              onChange={handleChange}
-              maxLength={maxLength}
-              required
-            />
-            <label className="absolute top-7 left-5 -mt-6 text-xs text-black">
-              Community Name
-            </label>
-            <label className="absolute top-7 right-5 -mt-6 text-xs text-black">
-              {inputValue.length}/{maxLength}
-            </label>
-            <div className="ml-5 mr-5 text-sm">
-              Name must be between 3 and {maxLength} characters
+    <Card
+    className=
+      '!rounded-b-xl !rounded-t-none border-none'
+  >
+      <div className="ml-5 mr-5">
+        <div className="flex flex-col pt-5 items-center justify-center">
+          <div className="p-4 flex flex-col items-center justify-center w-full">
+            <div className="relative w-full mb-20">
+              <input
+                type="text"
+                className="border-2 border-black rounded-full px-5 py-3 text-black w-full focus:border-pink-500"
+                placeholder=""
+                value={inputValue}
+                onChange={handleChange}
+                maxLength={maxLength}
+                required
+              />
+              <label className="absolute top-7 left-5 -mt-6 text-xs text-black">
+                Community Name
+              </label>
+              <label className="absolute top-7 right-5 -mt-6 text-xs text-black">
+                {inputValue.length}/{maxLength}
+              </label>
+              <div className="ml-5 mr-5 text-sm">
+                Name must be between 3 and {maxLength} characters
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="divider mx-5" />
-      <div className="block items-center px-5 py-3 sm:flex">
-        <div className="flex items-center space-x-4"></div>
-        <div className="ml-auto mt-2 sm:mt-0">
-          <Button className="mr-4" variant="pink" onClick={handleSubmit}>
-            Create
-          </Button>
-          <Button variant="primary" outline={true} onClick={handleClose}>
-            Cancel
-          </Button>
+        <div className="divider mx-5" />
+        <div className="block items-center px-5 py-3 sm:flex">
+          <div className="flex items-center space-x-4"></div>
+          <div className="ml-auto mt-2 sm:mt-0">
+            <Button className="mr-4" variant="pink" onClick={handleSubmit}>
+              Create
+            </Button>
+            <Button variant="primary" outline={true} onClick={handleClose}>
+              Cancel
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
+      </Card>
   );
 
 
   return (
-    <Button
-    variant = 'primary'
-    outline = {true}
-    onClick= {handleOpen}
-    >
-      <span>
-        Create Communities Test
-      </span>
-    </Button>
-
-    
+    <>
+      <Button variant="primary" outline={true} onClick={handleOpen}>
+        <span>Create Communities Test</span>
+      </Button>
+      {showModal && (
+        <Modal 
+        show = {true}
+        onClose={handleClose}
+        title="Create Community">
+          {modalContent}
+        </Modal>
+      )}
+    </>
   );
 };
 
