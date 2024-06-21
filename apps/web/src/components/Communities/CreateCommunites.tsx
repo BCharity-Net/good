@@ -47,6 +47,12 @@ const createCommunity = async () => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
+
+    if (inputValue.length < 4) {
+      toast.error('Community Name must be at least 4 characters.');
+      return;
+    }
+    
     console.log('Community Name:', communityName);
     handleClose();
   };
@@ -76,7 +82,7 @@ const createCommunity = async () => {
                 {inputValue.length}/{maxLength}
               </label>
               <div className="ml-5 mr-5 text-sm">
-                Name must be between 3 and {maxLength} characters
+                Name must be between 4 and {maxLength} characters
               </div>
             </div>
           </div>
