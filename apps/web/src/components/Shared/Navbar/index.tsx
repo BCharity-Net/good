@@ -31,7 +31,12 @@ import MoreNavItems from './MoreNavItems';
 import SignupButton from './SignupButton';
 import StaffBar from './StaffBar';
 import CreateCommunities from '@components/Communities/CreateCommunites';
-import { Button } from '@good/ui';
+import ErrorMsg from '@components/Communities/StatusMessages/ErrorMsg';
+import SuccessMsg from '@components/Communities/StatusMessages/SuccessMsg';
+import Success from '../Auth/Signup/Success';
+import Error from 'next/error';
+import { ErrorMessage } from '@good/ui';
+
 const NavbarContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -256,6 +261,13 @@ const Navbar: FC = () => {
               <div className="desktop-post-button mt-5 w-full">
                 <NavPost />
                <CreateCommunities/>
+                {/**  
+                <SuccessMsg/>
+                <ErrorMsg/>
+                 */}
+                
+                
+               
                
                 {!currentProfile ? <LoginButton /> : null}
                 {!currentProfile ? <SignupButton /> : null}

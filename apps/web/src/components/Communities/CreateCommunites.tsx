@@ -12,8 +12,16 @@ const CommunityCreation: FC = () => {
   const [communityName, setCommunityName] = useState('');
   const [inputValue, setInputValue] = useState<string>('');
 
-  const handleOpen = () => setShowModal(true);
-  const handleClose = () => setShowModal(false);
+  const handleOpen = () => {
+    setShowModal(true);
+    setInputValue('');
+    setCommunityName('');
+  }
+  const handleClose = () => {
+    setShowModal(false);
+    setInputValue('');
+    setCommunityName('');
+  }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
