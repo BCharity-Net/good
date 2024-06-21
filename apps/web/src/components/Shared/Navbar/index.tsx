@@ -265,10 +265,6 @@ const Navbar: FC = () => {
                 <SuccessMsg/>
                 <ErrorMsg/>
                  */}
-                
-                
-               
-               
                 {!currentProfile ? <LoginButton /> : null}
                 {!currentProfile ? <SignupButton /> : null}
                 <div

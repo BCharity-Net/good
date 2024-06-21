@@ -61,7 +61,7 @@ const CommunityCreation: FC = () => {
               <input
                 type="text"
                 className="border-2 border-black rounded-full px-5 py-3 text-black w-full focus:border-pink-500"
-                placeholder="Community Name"
+                placeholder=""
                 value={inputValue}
                 onChange={handleChange}
                 maxLength={maxLength}
