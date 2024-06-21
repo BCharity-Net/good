@@ -70,7 +70,7 @@ const SuccessMsg: FC = () => {
 
   return (
     <>
-      <Modal show={true} onClose={handleClose} title="Error creating community">
+      <Modal show={true} onClose={handleClose} title="Community Created">
           {modalContent}
         </Modal>
     </>
