@@ -103,6 +103,10 @@ export const EXPLORE = {
   SWITCH_EXPLORE_FEED_TAB: 'Switch explore feed tab'
 };
 
+export const DONATIONS = {
+  SWITCH_DONATIONS_FEED_TAB: 'Switch donations feed tab'
+};
+
 export const SETTINGS = {
   ACCOUNT: {
     REQUEST_VERIFICATION: 'Request verification',

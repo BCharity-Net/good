@@ -1,8 +1,7 @@
 import type { FC } from 'react';
-
 import cn from '@good/ui/cn';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { EllipsisHorizontalCircleIcon } from '@heroicons/react/24/outline';
+import { EllipsisHorizontalCircleIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import MenuTransition from '../MenuTransition';
@@ -34,7 +33,8 @@ const MoreNavItems: FC = () => {
           </MenuButton>
           <MenuTransition>
             <MenuItems
-              className="absolute bottom-0 left-0 mb-2 rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+              className="absolute bottom-0 left-0 mb-4 rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+              style={{ top: '-120px' }} // Adjust this value to raise the dropdown location
               static
             >
               {currentProfile ? (
@@ -84,6 +84,15 @@ const MoreNavItems: FC = () => {
                 }
               >
                 <Support />
+              </MenuItem>
+              <MenuItem
+                as="div"
+                className={({ focus }: { focus: boolean }) =>
+                  cn({ 'dropdown-active': focus }, 'm-2 rounded-lg flex items-center space-x-2')
+                }
+              >
+                <CurrencyDollarIcon className="mr-2 h-5 w-5 text-gray-400" aria-hidden="true" />
+                <MoreLink href="/donations" text="Donations" />
               </MenuItem>
             </MenuItems>
           </MenuTransition>

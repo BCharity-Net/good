@@ -1,5 +1,4 @@
 import type { FC, ReactNode } from 'react';
-
 import NavPost from '@components/Composer/Post/NavPost';
 import Search from '@components/Search';
 import cn from '@good/ui/cn';
@@ -38,41 +37,35 @@ const NavbarContainer = styled.div`
   margin: 0;
   .nav-text,
   .auth-buttons {
-  display: block;
-}
+    display: block;
+  }
 
-@media (max-width: 1024px) {
+  @media (max-width: 1024px) {
     .nav-text,
     .auth-buttons {
-    display: none;
-  }
-}
-
-  .hide-on-mobile {
-  display: block; 
-}
-
-
-@media (max-width: 760px) {
-  .hide-on-mobile {
-    display: none; 
-  }
-}
-
-
-  .display-on-mobile {
-  display: none; 
-}
-
-@media (max-width: 760px) {
-    .display-on-mobile {
-    display: block; 
+      display: none;
     }
   }
 
-}
+  .hide-on-mobile {
+    display: block; 
+  }
 
+  @media (max-width: 760px) {
+    .hide-on-mobile {
+      display: none; 
+    }
+  }
 
+  .display-on-mobile {
+    display: none; 
+  }
+
+  @media (max-width: 760px) {
+    .display-on-mobile {
+      display: block; 
+    }
+  }
 `;
 
 const BottomButtonsContainer = styled.div`
@@ -117,6 +110,86 @@ const MobilePostButton = styled.button`
   }
 `;
 
+const NavItem: FC<NavItemProps> = ({ current, icon, name, url }) => {
+  return (
+    <Link
+      className={cn(
+        'mb-4 flex cursor-pointer items-start space-x-2 rounded-md px-2 py-1 hover:bg-gray-300/20 md:flex',
+        {
+          'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': current,
+          'text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white':
+            !current
+        }
+      )}
+      href={url}
+    >
+      {icon}
+      <div className="nav-text text-black dark:text-white">
+        <span className={`text-xl ${current ? 'font-bold' : ''}`}>
+          {name}
+        </span>
+      </div>
+    </Link>
+  );
+};
+
+const NavItems = () => {
+  const { pathname } = useRouter();
+  return (
+    <>
+      <NavItem
+        current={pathname === '/'}
+        icon={
+          pathname === '/' ? (
+            <HomeIconSolid className="size-8" />
+          ) : (
+            <HomeIconOutline className="size-8" />
+          )
+        }
+        name="Home"
+        url="/"
+      />
+      <NavItem
+        current={pathname === '/explore'}
+        icon={
+          pathname === '/explore' ? (
+            <MagnifyingGlassIconSolid className="size-8" />
+          ) : (
+            <MagnifyingGlassIconOutline className="size-8" />
+          )
+        }
+        name="Explore"
+        url="/explore"
+      />
+      <NavItem
+        current={pathname === '/notifications'}
+        icon={
+          pathname === '/notifications' ? (
+            <BellIconSolid className="size-8" />
+          ) : (
+            <BellIconOutline className="size-8" />
+          )
+        }
+        name="Notifications"
+        url="/notifications"
+      />
+      <NavItem
+        current={pathname === '/messages'}
+        icon={
+          pathname === '/messages' ? (
+            <EnvelopeIconSolid className="size-8" />
+          ) : (
+            <EnvelopeIconOutline className="size-8" />
+          )
+        }
+        name="Messages"
+        url="/messages"
+      />
+      <MoreNavItems />
+    </>
+  );
+};
+
 const Navbar: FC = () => {
   const { currentProfile } = useProfileStore();
   const { staffMode } = useFeatureFlagsStore();
@@ -133,93 +206,6 @@ const Navbar: FC = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  interface NavItemProps {
-    current: boolean;
-    icon: ReactNode;
-    name: string;
-    url: string;
-  }
-
-  const NavItem: FC<NavItemProps> = ({ current, icon, name, url }) => {
-    return (
-      <Link
-        className={cn(
-          'mb-4 flex cursor-pointer items-start space-x-2 rounded-md px-2 py-1 hover:bg-gray-300/20 md:flex',
-          {
-            'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': current,
-            'text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white':
-              !current
-          }
-        )}
-        href={url}
-      >
-        {icon}
-        <div className="nav-text text-black dark:text-white">
-          <span className={`text-xl ${current ? 'font-bold' : ''}`}>
-            {name}
-          </span>
-        </div>
-      </Link>
-    );
-  };
-
-  const NavItems = () => {
-    const { pathname } = useRouter();
-    return (
-      <>
-        <NavItem
-          current={pathname === '/'}
-          icon={
-            pathname === '/' ? (
-              <HomeIconSolid className="size-8" />
-            ) : (
-              <HomeIconOutline className="size-8" />
-            )
-          }
-          name="Home"
-          url="/"
-        />
-        <NavItem
-          current={pathname === '/explore'}
-          icon={
-            pathname === '/explore' ? (
-              <MagnifyingGlassIconSolid className="size-8" />
-            ) : (
-              <MagnifyingGlassIconOutline className="size-8" />
-            )
-          }
-          name="Explore"
-          url="/explore"
-        />
-        <NavItem
-          current={pathname === '/notifications'}
-          icon={
-            pathname === '/notifications' ? (
-              <BellIconSolid className="size-8" />
-            ) : (
-              <BellIconOutline className="size-8" />
-            )
-          }
-          name="Notifications"
-          url="/notifications"
-        />
-        <NavItem
-          current={pathname === '/messages'}
-          icon={
-            pathname === '/messages' ? (
-              <EnvelopeIconSolid className="size-8" />
-            ) : (
-              <EnvelopeIconOutline className="size-8" />
-            )
-          }
-          name="Messages"
-          url="/messages"
-        />
-        <MoreNavItems />
-      </>
-    );
-  };
 
   return (
     <header className="sticky top-0 z-10 min-w-fit bg-white dark:bg-black">
