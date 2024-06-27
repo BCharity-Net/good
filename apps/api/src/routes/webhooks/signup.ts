@@ -3,7 +3,7 @@ import type { Handler } from 'express';
 import { Errors } from '@good/data';
 import catchedError from 'src/helpers/catchedError';
 import { invalidBody, noBody } from 'src/helpers/responses';
-import sendSignupNotificationToSlack from 'src/helpers/webhooks/sendSignupNotificationToSlack';
+import sendSignupNotificationToSlack from 'src/helpers/webhooks/signup/sendSignupNotificationToSlack';
 import { any, object } from 'zod';
 
 type ExtensionRequest = {

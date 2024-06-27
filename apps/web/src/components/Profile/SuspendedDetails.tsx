@@ -6,13 +6,12 @@ import { STATIC_IMAGES_URL } from '@good/data/constants';
 import getProfile from '@good/helpers/getProfile';
 import { Image } from '@good/ui';
 
-export const MetaDetails = ({
-  children,
-  icon
-}: {
+interface MetaDetailsProps {
   children: ReactNode;
   icon: ReactNode;
-}) => (
+}
+
+export const MetaDetails: FC<MetaDetailsProps> = ({ children, icon }) => (
   <div className="flex items-center gap-2">
     {icon}
     <div className="text-md truncate">{children}</div>
@@ -24,6 +23,8 @@ interface SuspendedDetailsProps {
 }
 
 const SuspendedDetails: FC<SuspendedDetailsProps> = ({ profile }) => {
+  const profileData = getProfile(profile);
+
   return (
     <div className="space-y-5 px-5 sm:px-0">
       <div className="relative -mt-24 size-32 sm:-mt-32 sm:size-52">
@@ -40,7 +41,7 @@ const SuspendedDetails: FC<SuspendedDetailsProps> = ({ profile }) => {
         <div>
           <Slug
             className="text-sm sm:text-base"
-            slug={getProfile(profile).slugWithPrefix}
+            slug={profileData.slugWithPrefix}
           />
         </div>
       </div>

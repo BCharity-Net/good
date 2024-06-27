@@ -4,12 +4,13 @@ import {
   type Address,
   createPublicClient,
   decodeEventLog,
-  parseAbi
+  parseAbi,
+  PublicClient
 } from 'viem';
 import { polygon } from 'viem/chains';
 
-import getRpc from '../getRpc';
-import sendSlackMessage from '../slack';
+import getRpc from '../../getRpc';
+import sendSlackMessage from '../../slack';
 
 const MAX_RETRIES = 10;
 const RETRY_DELAY_MS = 3000;
@@ -19,7 +20,7 @@ const TOPIC =
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const fetchTransactionReceiptWithRetry = async (
-  client: any,
+  client: PublicClient,
   hash: Address,
   retries: number = MAX_RETRIES
 ): Promise<any> => {

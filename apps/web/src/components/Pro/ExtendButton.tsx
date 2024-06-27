@@ -1,32 +1,22 @@
 import type { FC } from 'react';
 
-import { GoodPro } from '@good/abis';
 import { Errors } from '@good/data';
-import { GOOD_PRO, PRO_TIER_PRICES } from '@good/data/constants';
-import { PAGEVIEW } from '@good/data/tracking';
 import { Button } from '@good/ui';
 import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
+import { MONTHLY_PRO_PRICE, PRO_EOA_ADDRESS } from '@good/data/constants';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useProStore } from 'src/store/non-persisted/useProStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { parseEther } from 'viem';
-import { useTransaction, useWriteContract } from 'wagmi';
+import { useSendTransaction, useTransactionReceipt } from 'wagmi';
 
 interface ExtendButtonProps {
-  outline?: boolean;
   size?: 'lg' | 'md';
-  tier: 'annually' | 'monthly';
 }
 
-const ExtendButton: FC<ExtendButtonProps> = ({
-  outline = false,
-  size = 'lg',
-  tier
-}) => {
+const ExtendButton: FC<ExtendButtonProps> = ({ size = 'lg' }) => {
   const { currentProfile } = useProfileStore();
   const { isPro } = useProStore();
 
@@ -35,14 +25,15 @@ const ExtendButton: FC<ExtendButtonProps> = ({
     null
   );
 
-  const { isSuspended } = useProfileStatus();
   const handleWrongNetwork = useHandleWrongNetwork();
+  const { sendTransactionAsync } = useSendTransaction({
+    mutation: {
+      onError: errorToast,
+      onSuccess: (hash: string) => setTransactionHash(hash as `0x${string}`)
+    }
+  });
 
-  useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'pro' });
-  }, []);
-
-  const { isFetching: transactionLoading, isSuccess } = useTransaction({
+  const { isFetching: transactionLoading, isSuccess } = useTransactionReceipt({
     hash: transactionHash as `0x${string}`,
     query: { enabled: Boolean(transactionHash) }
   });
@@ -53,39 +44,19 @@ const ExtendButton: FC<ExtendButtonProps> = ({
     }
   }, [isSuccess]);
 
-  const { writeContractAsync } = useWriteContract({
-    mutation: {
-      onError: errorToast,
-      onSuccess: (hash: string) => {
-        // Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'crypto' });
-        setTransactionHash(hash as `0x${string}`);
-      }
-    }
-  });
-
-  const upgrade = async (id: 'annually' | 'monthly') => {
+  const upgrade = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
-    }
-
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
     }
 
     try {
       setIsLoading(true);
       await handleWrongNetwork();
 
-      return await writeContractAsync({
-        abi: GoodPro,
-        address: GOOD_PRO,
-        args: [currentProfile.id],
-        functionName: id === 'monthly' ? 'subscribeMonthly' : 'subscribeYearly',
-        value: parseEther(
-          id === 'monthly'
-            ? PRO_TIER_PRICES.monthly.toString()
-            : PRO_TIER_PRICES.annually.toString()
-        )
+      await sendTransactionAsync({
+        data: currentProfile.id,
+        to: PRO_EOA_ADDRESS,
+        value: parseEther(MONTHLY_PRO_PRICE.toString())
       });
     } catch (error) {
       errorToast(error);
@@ -98,14 +69,13 @@ const ExtendButton: FC<ExtendButtonProps> = ({
     <Button
       className="mt-3 w-full"
       disabled={isLoading || transactionLoading}
-      onClick={() => upgrade(tier as 'annually' | 'monthly')}
-      outline={outline}
+      onClick={upgrade}
       size={size}
     >
       {transactionLoading
         ? 'Transaction pending...'
         : isPro
-          ? `Extend a ${tier === 'monthly' ? 'Month' : 'Year'}`
+          ? `Extend a Month`
           : 'Upgrade to Pro'}
     </Button>
   );

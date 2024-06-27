@@ -8,16 +8,26 @@ fragment ActedNotificationFields on ActedNotification {
   }
   publication {
     ... on Post {
-      ...PostFields
+      ...NotificationPostFields
     }
     ... on Comment {
-      ...CommentBaseFields
+      ...NotificationCommentFields
     }
     ... on Mirror {
-      ...MirrorFields
+      mirrorOn {
+        ... on Post {
+          ...NotificationPostFields
+        }
+        ... on Comment {
+          ...NotificationCommentFields
+        }
+        ... on Quote {
+          ...NotificationQuoteFields
+        }
+      }
     }
     ... on Quote {
-      ...QuoteBaseFields
+      ...NotificationQuoteFields
     }
   }
 }

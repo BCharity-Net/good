@@ -2,13 +2,22 @@ fragment MentionNotificationFields on MentionNotification {
   id
   publication {
     ... on Post {
-      ...PostFields
+      ...NotificationPostFields
+      by {
+        ...PublicationProfileFields
+      }
     }
     ... on Comment {
-      ...CommentBaseFields
+      ...NotificationCommentFields
+      by {
+        ...PublicationProfileFields
+      }
     }
     ... on Quote {
-      ...QuoteBaseFields
+      ...NotificationQuoteFields
+      by {
+        ...PublicationProfileFields
+      }
     }
   }
 }

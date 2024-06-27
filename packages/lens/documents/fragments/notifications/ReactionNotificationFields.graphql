@@ -2,13 +2,13 @@ fragment ReactionNotificationFields on ReactionNotification {
   id
   publication {
     ... on Post {
-      ...PostFields
+      ...NotificationPostFields
     }
     ... on Comment {
-      ...CommentBaseFields
+      ...NotificationCommentFields
     }
     ... on Quote {
-      ...QuoteBaseFields
+      ...NotificationQuoteFields
     }
   }
   reactions {

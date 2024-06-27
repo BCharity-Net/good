@@ -7,13 +7,13 @@ fragment MirrorNotificationFields on MirrorNotification {
   }
   publication {
     ... on Post {
-      ...PostFields
+      ...NotificationPostFields
     }
     ... on Comment {
-      ...CommentBaseFields
+      ...NotificationCommentFields
     }
     ... on Quote {
-      ...QuoteBaseFields
+      ...NotificationQuoteFields
     }
   }
 }

@@ -19,7 +19,6 @@ export const TOKEN_HANDLE_REGISTRY = getEnvConfig().tokenHandleRegistry;
 export const GOOD_LENS_SIGNUP = getEnvConfig().goodLensSignup;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const PERMISSIONLESS_CREATOR = getEnvConfig().permissionlessCreator;
-export const GOOD_PRO = getEnvConfig().goodPro;
 export const GOOD_TIPPING = getEnvConfig().goodTipping;
 export const GOOD_DONATION = getEnvConfig().goodDonation;
 
@@ -43,7 +42,8 @@ export const WMATIC_ADDRESS = IS_MAINNET
   : '0x9c3c9283d3e44854697cd22d3faa240cfb032889';
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const PERMIT_2_ADDRESS = '0x000000000022D473030F116dDEE9F6B43aC78BA3';
-export const REWARDS_ADDRESS = '0x698386C93513d6D0C58f296633A7A3e529bd4026';
+export const REWARDS_ADDRESS = '0x69696378FaEd01315c762e5122fFFBc7bab03570';
+export const PRO_EOA_ADDRESS = '0xCAFEfB235AE1c10dC579338d06D90F0c89c4e5D6';
 export const REWARDS_PROFILE_ID = '12'; // 0x0c
 export const TEST_WALLET_ADDRESS = '0xb9C6e304545386E95d5c4ab183EE97A13555A49d';
 export const TEST_PK =
@@ -55,11 +55,8 @@ export const ZERO_PUBLICATION_ID = '0x00-0x00';
 export const HANDLE_PREFIX = 'lens/';
 export const CLUB_HANDLE_PREFIX = 'club/';
 export const SIGNUP_PRICE = IS_MAINNET ? 8 : 1;
-export const PRO_TIER_PRICES = {
-  annually: 90,
-  monthly: 8
-};
-export const GOOD_MEMBERSHIP_NFT = IS_MAINNET
+export const MONTHLY_PRO_PRICE = 10;
+export const HEY_MEMBERSHIP_NFT = IS_MAINNET
   ? '0x100372BBF7f975f6b1448fB11AB0F814b2740EEd'
   : '0x75120677aBF34ae95a916C6E9DbB610a06536CC3';
 export const GOOD_MEMBERSHIP_NFT_PUBLICATION_ID = '0x020b69-0x01';
