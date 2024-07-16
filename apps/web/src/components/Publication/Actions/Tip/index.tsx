@@ -12,9 +12,9 @@ import cn from '@good/ui/cn';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { motion } from 'framer-motion';
 import party from 'party-js';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
-import { useState, useEffect } from 'react';
+
 import Action from './Action';
 
 interface TipProps {
@@ -27,7 +27,7 @@ const Tip: FC<TipProps> = ({ publication, showCount }) => {
   const tip = getPublicationTipById(publicationTips, publication.id);
   const confettiDom = useRef<HTMLDivElement>(null);
 
-  const [isWindowWideEnough, setIsWindowWideEnough] = useState(true); 
+  const [isWindowWideEnough, setIsWindowWideEnough] = useState(true);
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 491) {
@@ -37,7 +37,7 @@ const Tip: FC<TipProps> = ({ publication, showCount }) => {
       }
     };
     console.log(window.innerWidth);
-    handleResize(); 
+    handleResize();
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -85,10 +85,8 @@ const Tip: FC<TipProps> = ({ publication, showCount }) => {
         </MenuButton>
         <MenuTransition>
           <MenuItems
-        className={`absolute z-10 mt-1 w-max rounded-xl border 
-          bg-white shadow-sm focus:outline-none dark:border-gray-700 
-          dark:bg-gray-900 ${!isWindowWideEnough ? 'left-1/2 -translate-x-1/2' : ''}`}         
-        static
+            className={`absolute z-10 mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900 ${!isWindowWideEnough ? 'left-1/2 -translate-x-1/2' : ''}`}
+            static
           >
             <MenuItem>
               {({ close }) => (
