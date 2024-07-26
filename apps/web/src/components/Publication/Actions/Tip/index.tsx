@@ -69,7 +69,7 @@ const Tip: FC<TipProps> = ({ publication, showCount }) => {
         </MenuButton>
         <MenuTransition>
           <MenuItems
-            className="absolute z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+            className="absolute bottom-full right-0 z-[5] mb-1 w-max max-w-xs rounded-xl border bg-white shadow-sm focus:outline-none sm:bottom-auto sm:right-auto sm:max-w-none dark:border-gray-700 dark:bg-gray-900"
             static
           >
             <MenuItem>
